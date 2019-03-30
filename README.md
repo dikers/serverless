@@ -5,8 +5,7 @@
 
 ### AWS无服务器计算
 
-无服务器计算是云原生架构，能够将更多的运营职责转移到
-AWS，从而提高灵活性和创新能力。无服务器计算可以在不考虑服务器的情况下构建并运行应用程序和服务。它消除了基础设施管理任务，例如服务器或集群配置、修补、操作系统维护和容量预置。
+无服务器计算是云原生架构，能够将更多的运营职责转移到AWS，从而提高灵活性和创新能力。无服务器计算可以在不考虑服务器的情况下构建并运行应用程序和服务。它消除了基础设施管理任务，例如服务器或集群配置、修补、操作系统维护和容量预置。
 
 
 ### 无服务器计算优势
@@ -30,29 +29,28 @@ AWS，从而提高灵活性和创新能力。无服务器计算可以在不考�
 
 ### AWS Lambda 计算服务
 
-    AWS Lambda 是一项计算服务，无需预配置或管理服务器即可运行代码。AWS Lambda 只在需要时执行您的代码并自动缩放，从每天几个请求到每秒数千个请求。
-    只需按消耗的计算时间付费– 代码未运行时不产生费用。借助 AWS Lambda，几乎可以为任何类型的应用程序或后端服务运行代码，并且不必进行任何管理。
-    AWS Lambda在可用性高的计算基础设施上运行代码，执行计算资源的所有管理工作，其中包括服务器和操作系统维护、容量预置和自动扩展、代码监控和记录。
 
 
-### AWS Lambda 利用容器重用来提高函数性能
- 
-   
-    如下图所示， 当请求达到一定峰值后， 才会启动新的Lambda实例进行响应， 所以在代码设计要整体考虑。限制变量/对象在每次调用时的重新初始化，而是使用静态初始化/构造函数、全局/静态变量以及单例。保持运行并重复使用连接(HTTP，数据库等)，它们在上次调用时建立。
+
+
+### AWS Lambda 运行机制
+
+
+利用容器重用来提高函数性能当请求达到一定峰值后，才会启动新的Lambda实例进行响应，如下图所示：
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/9.jpg?raw=true)
-
+ 所以在代码设计要整体考虑。限制变量/对象在每次调用时的重新初始化，而是使用静态初始化/构造函数、全局/静态变量以及单例。保持运行并重复使用连接(HTTP，数据库等)，它们在上次调用时建立。
 
 
 
 ## 二、 项目功能和技术架构介绍。
 
-###项目功能介绍
+### 项目功能介绍
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/8.jpg?raw=true)
-[项目演示地址](http://dikers.de)
 
-项目本身的功能比较简单， 通过用户输入的关键字，实时返回查询结果， 并显示在页面上。 
+
+项目本身的功能比较简单， 通过用户输入的关键字，实时返回查询结果， 并显示在页面上。 [项目演示地址](http://dikers.de)
 
 
 
@@ -65,7 +63,8 @@ AWS，从而提高灵活性和创新能力。无服务器计算可以在不考�
 
 ####  用AWS S3托管静态网站
 
-[代码目录](https://github.com/dikers/serverless/tree/master/web)
+[前端代码目录](https://github.com/dikers/serverless/tree/master/web)
+
 前端用jquery 做静态页面 ， 将静态页面上次到AWS S3上， 设置S3 为托管网站，
 再使用AWS CloudFront 做CDN内容分发， 提高网站访问速度。
 
@@ -75,7 +74,7 @@ AWS，从而提高灵活性和创新能力。无服务器计算可以在不考�
 需要配置安全组，已经访问策略， 只有来自Api Gateway能访问Lambda的指定端口。
 同时可以配置 AWS WAF （web application firewall ） AWS Shield 和 AWS
 Firewall Manager 来保护系统遭受网络攻击。
-[官网配置地址](https://console.aws.amazon.com/waf/home?region=us-east-1#/intro)
+[官网介绍](https://console.aws.amazon.com/waf/home?region=us-east-1#/intro)
 
 
 
@@ -93,9 +92,10 @@ Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
 [Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)
 
 ####  AWS Glacier 做数据定期的归档
-
-使用AWS Glacier 可以用很低的成本保存不经常使用的数据，
-例如几个月以前的数据库快照和日志记录，使用简单方便。
+Amazon S3 Glacier
+是一款安全、持久且成本极低的云存储服务，适用于数据存档和长期备份。它能够提供
+99.999999999% 的持久性以及全面的安全与合规功能，可以帮助满足最严格的监管要求。
+在项目中， 会用Glacier来保存数据库快照和日志记录。
 [AWS Glacier官方介绍](https://aws.amazon.com/cn/glacier/?nc2=h_m1)
 
 
@@ -104,15 +104,19 @@ Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
 
 ### 1. 开通AWS 账号
 
-直接到[亚马逊注册中心](https://portal.aws.amazon.com/billing/signup?redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation&language=zh_cn#/start)开通账号， 包含12个月的免费套餐，可以用来学习。
-需要绑定信用卡， **注意不需要使用服务的时候，及时关闭资源，避免产生不必要的费用。**
-建议设置计费警告， 当超过免费套餐额度的时候， 会收到邮件。 
+直接到[亚马逊注册中心](https://portal.aws.amazon.com/billing/signup?redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation&language=zh_cn#/start)开通账号，
+包含12个月的免费套餐，可以用来学习。 需要绑定信用卡，
+**注意不需要使用服务的时候，及时关闭资源，避免产生不必要的费用。**
+建议设置计费警告， 当超过免费套餐额度的时候， 会收到邮件通知。
  
 
-### 2. 申请域名， 通过Route53解析
-首先需要注册域名，**需要一些费用**
+### 2. 申请域名， 使用Route53解析
 
-(例如 example.com) 和子域 (例如 www.example.com)  
+
+Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) Web 服务.
+
+首先需要注册域名，[注册地址](https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-register.html)
+**需要一些费用** 申请的域名如下：例如 example.com 和子域 www.example.com
 
 
 ### 3. 开通 S3, 进行静态内容托管
@@ -130,7 +134,6 @@ Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
      在下图所在页面对S3 进行配置。
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/10.jpg?raw=true)
-图 3
 
 
 *  存储桶的公有访问设置，需要能修改访问策略，否则修改公有访问权限会修改不成功，见下图。 
@@ -159,7 +162,7 @@ Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
 
 *  设置完成以后，需要用Route53 做流量转发
 
-![image](https://github.com/dikers/serverless/blob/master/doc/picture/12.jpg?raw=true) 
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/22.jpg?raw=true) 
 
 
 
@@ -174,6 +177,10 @@ Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
 * 为了提供访问性能， 可以设置只读副本， 写示例可以异步备份数据到读示例上 。
 
 * 设置AWS IAM 用户和角色来管理数据库用户凭证。
+
+* 设置访问策略
+  ![image](https://github.com/dikers/serverless/blob/master/doc/picture/26.jpg?raw=true)
+
 
  
 
@@ -200,23 +207,21 @@ public class Hello implements RequestHandler<Integer, String>{
 
 * 给lambda 函数添加触发器， 
 
-   这里我们选用 Api Gateway进行关联， 把来自S3托管网页的ajax 请求，转发给Lambda
-   进行处理。 
-![image]()
-图 22
+   这里选择 Api Gateway进行关联， 把来自S3托管网页的ajax 请求，转发给Lambda
+   进行处理。
+   ![image](https://github.com/dikers/serverless/blob/master/doc/picture/25.jpg?raw=true)
 
 * 环境变量的配置
 
 将AWS 上的数据库配置信息加密保存到AWS上， 与代码分离。 通过代码读取。
-同时需要选择加密的方式。 
- 
- ![image]() 图 22
+同时需要选择加密的方式,将环境变量加密后保存到AWS上。
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/28.jpg?raw=true)
 
 * 网络安全设置
 
 本项目的lambda函数需要外部 Internet 访问，确保安全组允许出站连接并且 VPC 具有
-NAT 网关, 能让外部用户访问到。 
-
+NAT 网关, 能让外部用户访问到。详细配置见下图：
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/23.jpg?raw=true)
 
 
 
