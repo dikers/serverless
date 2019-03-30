@@ -14,7 +14,7 @@ public interface AppConstant {
     /**
      *查询商品最大数量限制
      */
-    Integer MAX_COUNT_PRODUCT_SIZE = 5;
+    Integer MAX_COUNT_PRODUCT_SIZE = 10;
 
 
     /**

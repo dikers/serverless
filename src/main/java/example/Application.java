@@ -1,6 +1,7 @@
 package example;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import example.constant.AppConstant;
 import example.db.DbHelper;
@@ -22,7 +23,6 @@ import java.sql.SQLException;
 public class Application implements RequestHandler<RequestVo, ResponseVo> {
 
 
-    static final Logger logger = LogManager.getLogger(DbHelper.class);
     /**
      * Lambda 需要实现的接口
      * @param request 请求参数
@@ -32,8 +32,8 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
     @Override
     public ResponseVo handleRequest(RequestVo request, Context context) {
 
-
-        logger.info( "Search word: {}   addFlag: {}  requestId: {}" , request.getSearchWord(), request.isAddFlag(), context.getAwsRequestId() );
+        LambdaLogger logger = context.getLogger();
+        logger.log( "SearchWord: '"+request.getSearchWord()+"'\taddFlag:"+request.isAddFlag()+"\t");
         return doWork( request.getSearchWord(), request.isAddFlag());
     }
 
@@ -70,7 +70,6 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Application application = new Application();
-        logger.info( "ssss" );
         System.out.println(application.doWork( "鞋子", false ));
 
     }

@@ -29,6 +29,8 @@
 
 ### AWS Lambda 计算服务
 
+利用 Lambda，不必预配置自己的实例；Lambda
+会代执行所有的运行和管理活动，包括容量预配置、监控服务器队运行状况、向底层计算资源应用安全补丁、部署代码、在前端运行Web服务以及监控和记录代码。AWSLambda为代码提供轻松的扩展和高可用性，从而无需做额外努力。
 
 
 
@@ -63,8 +65,6 @@
 
 ####  用AWS S3托管静态网站
 
-[前端代码目录](https://github.com/dikers/serverless/tree/master/web)
-
 前端用jquery 做静态页面 ， 将静态页面上次到AWS S3上， 设置S3 为托管网站，
 再使用AWS CloudFront 做CDN内容分发， 提高网站访问速度。
 
@@ -78,10 +78,12 @@ Firewall Manager 来保护系统遭受网络攻击。
 
 
 
-####  Lambda 做数据技术
-Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
-接受用户输入参数，然后去数据库中进行查询。 
+####  Lambda 做数据处理
+Service 层用java 实现数据计算和处理， 实现AWS Lambda接口函数，
+接受用户输入参数，然后去数据库中进行查询，并将数据返回。
+[Lambda 入门指南](https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/getting-started.html)
 
+[代码说明](https://github.com/dikers/serverless/tree/master/src/main/java/example)
 
 ####  RDS 做数据存储
 
@@ -91,12 +93,19 @@ Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
 可以用更低的费用，达到更高的吞吐量。
 [Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)
 
+[初始化sql](https://github.com/dikers/serverless/tree/master/db)
+
+
 ####  AWS Glacier 做数据定期的归档
 Amazon S3 Glacier
 是一款安全、持久且成本极低的云存储服务，适用于数据存档和长期备份。它能够提供
 99.999999999% 的持久性以及全面的安全与合规功能，可以帮助满足最严格的监管要求。
 在项目中， 会用Glacier来保存数据库快照和日志记录。
 [AWS Glacier官方介绍](https://aws.amazon.com/cn/glacier/?nc2=h_m1)
+
+
+
+
 
 
 ## 三、 项目实施步骤
@@ -115,8 +124,11 @@ Amazon S3 Glacier
 
 Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) Web 服务.
 
-首先需要注册域名，[注册地址](https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-register.html)
-**需要一些费用** 申请的域名如下：例如 example.com 和子域 www.example.com
+首先需要[注册域名](https://docs.aws.amazon.com/zh_cn/Route53/latest/DeveloperGuide/domain-register.html)
+**需要一些费用** 
+
+申请的域名如下：例如 example.com 和子域 www.example.com
+
 
 
 ### 3. 开通 S3, 进行静态内容托管
@@ -125,13 +137,19 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 ![image](https://d1.awsstatic.com/Projects/v1/AWS_StaticWebsiteHosting_Architecture_4b.da7f28eb4f76da574c98a8b2898af8f5d3150e48.png)
 
-*   需要创建两个存储桶（s3）。一个存储桶包含内容。另一个存储桶用来重定向请求。 
+*   需要创建三个存储桶（s3）。 
+    1.  一个存储桶包含内容。
+    2.  一个存储桶用来重定向请求。
+    3.  一个用来保存日志文件。
 
-    在Route53 中添加两个record 
-    - example.com 存储桶包含内容  
-    - www.example.com 用来重定向请求
+*   创建CloudFront 做内容分发， 加快各地区的访问速度。 
 
-     在下图所在页面对S3 进行配置。
+*   在Route53 中添加两个record， 用来做路由转发。 
+
+   1.  example.com 存储桶包含内容
+   2.  www.example.com 用来重定向请求 
+
+     在下图所在页面对S3 进行路由的配置。
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/10.jpg?raw=true)
 
@@ -170,7 +188,10 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 [申请RDS mysql数据库 - 官方教程](https://aws.amazon.com/cn/getting-started/tutorials/create-mysql-db/)
 
-* 可以设置多可用区域部署， 提供系统可用写， RDS会从一个可用区，同步复制到另外一个可用区里，当主库不用时，可以自动切换到从库。
+* 可以设置多可用区域部署， 提供系统可用写，
+  RDS会从一个可用区，同步复制到另外一个可用区里，当主库不用时，可以自动切换到从库。
+  见下图中配置：
+  ![image](https://github.com/dikers/serverless/blob/master/doc/picture/27.jpg?raw=true)
 
 * 在生产环境中需要设置安全组，只有Lambda服务所在的安全组，才有权限读写数据库。
 
@@ -178,7 +199,8 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 * 设置AWS IAM 用户和角色来管理数据库用户凭证。
 
-* 设置访问策略
+* 设置访问策略， 只有Lambda服务所在的网段 和堡垒机所在的网段 可以访问数据库，
+  详细配置见下图：
   ![image](https://github.com/dikers/serverless/blob/master/doc/picture/26.jpg?raw=true)
 
 
@@ -205,11 +227,12 @@ public class Hello implements RequestHandler<Integer, String>{
 * 服务端会调用  **example.Hello::myHandler**  进行调用
 
 
-* 给lambda 函数添加触发器， 
+* 给lambda 函数添加触发器 
 
    这里选择 Api Gateway进行关联， 把来自S3托管网页的ajax 请求，转发给Lambda
    进行处理。
-   ![image](https://github.com/dikers/serverless/blob/master/doc/picture/25.jpg?raw=true)
+   
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/25.jpg?raw=true)
 
 * 环境变量的配置
 
