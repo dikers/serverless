@@ -98,16 +98,16 @@ public class ResponseVo {
             stringBuffer.append( "list is null" );
         }else {
             for(ProductVo productVo: productList){
-                stringBuffer.append( "\t[" ).
-                        append( productVo.id ).append( " " ).
-                        append( productVo.title ).append( "]" );
+                stringBuffer.append( "{" ).
+                        append( productVo.id ).append( ":" ).
+                        append( productVo.title ).append( "}" );
             }
         }
 
         return "ResponseVo{" +
                 "status=" + status +
                 ", message='" + message + '\'' +
-                ", \nproductList=" + stringBuffer.toString() +
+                ", productList=" + stringBuffer.toString() +
                 '}';
     }
 }

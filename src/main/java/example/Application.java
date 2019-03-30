@@ -32,6 +32,7 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
     @Override
     public ResponseVo handleRequest(RequestVo request, Context context) {
 
+
         logger.info( "Search word: {}   addFlag: {}  requestId: {}" , request.getSearchWord(), request.isAddFlag(), context.getAwsRequestId() );
         return doWork( request.getSearchWord(), request.isAddFlag());
     }
@@ -69,7 +70,7 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Application application = new Application();
-
+        logger.info( "ssss" );
         System.out.println(application.doWork( "鞋子", false ));
 
     }
