@@ -29,7 +29,7 @@ public class ProductDao {
 
 
         String sql = "select id , title from product where title like  concat( ?,'%') ORDER BY id desc limit  ?  " ;
-        PreparedStatement preparedStatement = DBHelper.getInstance().getConnection().prepareStatement( sql );
+        PreparedStatement preparedStatement = DbHelper.getInstance().getConnection().prepareStatement( sql );
 
         preparedStatement.setString( 1, searchWord );
         preparedStatement.setInt( 2, amount );
@@ -63,7 +63,7 @@ public class ProductDao {
         String sql =  "insert into product (title)  values(?)  on  DUPLICATE key update content=? ";
 
 
-        PreparedStatement preparedStatement = DBHelper.getInstance().getConnection().prepareStatement( sql );
+        PreparedStatement preparedStatement = DbHelper.getInstance().getConnection().prepareStatement( sql );
 
         //用来模拟更新内容
         String content = "update "+new Date( ).toString() ;

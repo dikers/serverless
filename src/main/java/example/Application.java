@@ -3,7 +3,7 @@ package example;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import example.constant.AppConstant;
-import example.db.DBHelper;
+import example.db.DbHelper;
 import example.db.ProductDao;
 import example.enums.ReturnMessageEnum;
 import example.vo.RequestVo;
@@ -22,7 +22,7 @@ import java.sql.SQLException;
 public class Application implements RequestHandler<RequestVo, ResponseVo> {
 
 
-    static final Logger logger = LogManager.getLogger(DBHelper.class);
+    static final Logger logger = LogManager.getLogger(DbHelper.class);
     /**
      * Lambda 需要实现的接口
      * @param request 请求参数

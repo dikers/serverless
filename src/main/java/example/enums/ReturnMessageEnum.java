@@ -6,9 +6,22 @@ package example.enums;
  * @notes:
  */
 public enum ReturnMessageEnum {
+    /**
+     * 表示请求成功
+     */
     SUCCESS(0, "成功"),
+    /**
+     * 参数异常
+     */
     PARAM_ERROR(1, "参数异常"),
+    /**
+     * 参数为空
+     */
     PARAM_NULL(2, "入参为空"),
+    /**
+     * 未知异常
+     */
+
     SYSTEM_EXCEPTION(999, "未知异常");
 
     private String name;

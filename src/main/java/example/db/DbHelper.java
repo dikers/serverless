@@ -13,9 +13,9 @@ import java.sql.DriverManager;
  * @date 2019-03-29
  * 数据库连接管理类，单例（静态内部类模式）
  */
-public class DBHelper {
+public class DbHelper {
 
-    static final Logger logger = LogManager.getLogger(DBHelper.class);
+    static final Logger logger = LogManager.getLogger(DbHelper.class);
 
 
 
@@ -40,10 +40,10 @@ public class DBHelper {
 
 
 
-        private static final DBHelper helper = new DBHelper();
+        private static final DbHelper HELPER_INSTANCE = new DbHelper();
     }
 
-    private DBHelper() {
+    private DbHelper() {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
@@ -57,8 +57,8 @@ public class DBHelper {
         }
     }
 
-    public static final DBHelper getInstance() {
-        return LazyHolder.helper;
+    public static final DbHelper getInstance() {
+        return LazyHolder.HELPER_INSTANCE;
     }
 
     public Connection getConnection() {
