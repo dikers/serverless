@@ -5,7 +5,8 @@
 
 ### AWS无服务器计算
 
-无服务器计算是云原生架构，使您能够将更多的运营职责转移到 AWS，从而提高灵活性和创新能力。无服务器计算让您可以在不考虑服务器的情况下构建并运行应用程序和服务。它消除了基础设施管理任务，例如服务器或集群配置、修补、操作系统维护和容量预置。
+无服务器计算是云原生架构，能够将更多的运营职责转移到
+AWS，从而提高灵活性和创新能力。无服务器计算可以在不考虑服务器的情况下构建并运行应用程序和服务。它消除了基础设施管理任务，例如服务器或集群配置、修补、操作系统维护和容量预置。
 
 
 ### 无服务器计算优势
@@ -24,29 +25,22 @@
 
 * 自动化的高可用性
 
-  无服务器应用程序提供内置可用性和容错功能。您无需构建这些功能，因为运行此应用程序的服务在默认情况下会提供这些功能。
+  无服务器应用程序提供内置可用性和容错功能。无需构建这些功能，因为运行此应用程序的服务在默认情况下会提供这些功能。
 
 
 ### AWS Lambda 计算服务
 
-    AWS Lambda 是一项计算服务，可使您无需预配置或管理服务器即可运行代码。AWS
-    Lambda
-    只在需要时执行您的代码并自动缩放，从每天几个请求到每秒数千个请求。您只需按消耗的计算时间付费
-    – 代码未运行时不产生费用。借助 AWS
-    Lambda，您几乎可以为任何类型的应用程序或后端服务运行代码，并且不必进行任何管理。AWS
-    Lambda
-    在可用性高的计算基础设施上运行您的代码，执行计算资源的所有管理工作，其中包括服务器和操作系统维护、容量预置和自动扩展、代码监控和记录。
+    AWS Lambda 是一项计算服务，无需预配置或管理服务器即可运行代码。AWS Lambda 只在需要时执行您的代码并自动缩放，从每天几个请求到每秒数千个请求。
+    只需按消耗的计算时间付费– 代码未运行时不产生费用。借助 AWS Lambda，几乎可以为任何类型的应用程序或后端服务运行代码，并且不必进行任何管理。
+    AWS Lambda在可用性高的计算基础设施上运行代码，执行计算资源的所有管理工作，其中包括服务器和操作系统维护、容量预置和自动扩展、代码监控和记录。
 
 
 ### AWS Lambda 利用容器重用来提高函数性能
  
-   确保您的代码检索到的外部化配置或依赖关系在初次执行后在本地存储和引用。限制变量/对象在每次调用时的重新初始化，而是使用静态初始化/构造函数、全局/静态变量以及单例。保持运行并重复使用连接
-   (HTTP，数据库等)，它们在上次调用时建立。
+   
+    如下图所示， 当请求达到一定峰值后， 才会启动新的Lambda实例进行响应， 所以在代码设计要整体考虑。限制变量/对象在每次调用时的重新初始化，而是使用静态初始化/构造函数、全局/静态变量以及单例。保持运行并重复使用连接(HTTP，数据库等)，它们在上次调用时建立。
 
-
-
-![image](http://)
-图1
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/9.jpg?raw=true)
 
 
 
@@ -55,8 +49,8 @@
 
 ###项目功能介绍
 
-![image](http://)  
-图2
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/8.jpg?raw=true)
+[项目演示地址](http://dikers.de)
 
 项目本身的功能比较简单， 通过用户输入的关键字，实时返回查询结果， 并显示在页面上。 
 
@@ -65,27 +59,44 @@
 ### 项目架构设计
 
 ![image](http://)  
-图2
 
 
 
-####  S3 托管静态网站
 
-前端用Vue 做静态页面
+####  用AWS S3托管静态网站
+
+[代码目录](https://github.com/dikers/serverless/tree/master/web)
+前端用jquery 做静态页面 ， 将静态页面上次到AWS S3上， 设置S3 为托管网站，
+再使用AWS CloudFront 做CDN内容分发， 提高网站访问速度。
 
 
 ####  Api Gateway 做数据转发
+静态页面发出的动态请求，会通过Api Gateway做负载均衡然后转发给Lambda服务器,
+需要配置安全组，已经访问策略， 只有来自Api Gateway能访问Lambda的指定端口。
+同时可以配置 AWS WAF （web application firewall ） AWS Shield 和 AWS
+Firewall Manager 来保护系统遭受网络攻击。
+[官网配置地址](https://console.aws.amazon.com/waf/home?region=us-east-1#/intro)
+
 
 
 ####  Lambda 做数据技术
-Service 层用java 实现数据计算和处理
+Service 层用java 实现数据计算和处理， 实现Lambda接口函数，
+接受用户输入参数，然后去数据库中进行查询。 
 
 
 ####  RDS 做数据存储
 
-使用AWS RDS mysql 作为数据存储单元， 数据库需要在多可用区做备份， 以及做读写分离
+使用AWS RDS mysql 作为数据存储单元， 数据库需要在多可用区做备份，
+同时可以根据负责情况做读写分离，以提高吞吐量。 或者可以使用 AWS Aurora
+来替换Mysql数据， Aurora兼容mysql， 同时访问速度达到了mysql 的5倍，
+可以用更低的费用，达到更高的吞吐量。
+[Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)
 
 ####  AWS Glacier 做数据定期的归档
+
+使用AWS Glacier 可以用很低的成本保存不经常使用的数据，
+例如几个月以前的数据库快照和日志记录，使用简单方便。
+[AWS Glacier官方介绍](https://aws.amazon.com/cn/glacier/?nc2=h_m1)
 
 
 ## 三、 项目实施步骤
@@ -110,22 +121,24 @@ Service 层用java 实现数据计算和处理
 
 ![image](https://d1.awsstatic.com/Projects/v1/AWS_StaticWebsiteHosting_Architecture_4b.da7f28eb4f76da574c98a8b2898af8f5d3150e48.png)
 
-*   需要创建两个存储桶（s3）。一个存储桶包含内容。另一个存储桶用来重定向请求。
->  在Route53 中添加两个record
-   example.com  存储桶包含内容
-   www.example.com   用来重定向请求
+*   需要创建两个存储桶（s3）。一个存储桶包含内容。另一个存储桶用来重定向请求。 
 
-![image]()
+    在Route53 中添加两个record 
+    - example.com 存储桶包含内容  
+    - www.example.com 用来重定向请求
+
+     在下图所在页面对S3 进行配置。
+
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/10.jpg?raw=true)
 图 3
 
 
-*  此存储桶的公有访问设置，需要能修改访问策略，否则会修改不成功，见下图。 
+*  存储桶的公有访问设置，需要能修改访问策略，否则修改公有访问权限会修改不成功，见下图。 
 
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/13.jpg?raw=true) 
 
-![image]()
-图 3
-
-* 设置访问策略,注意要设置存储桶的访问权限为公有.
+* 设置访问策略,注意要设置存储桶的访问权限为公有. **example.com**
+  修改成自己存储桶的名称。下面是示例代码：
 ```
 {
     "Version": "2012-10-17",
@@ -141,14 +154,13 @@ Service 层用java 实现数据计算和处理
     ]
 }
 ```
-![image]()
-图 3
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/11.jpg?raw=true) 
 
 
 *  设置完成以后，需要用Route53 做流量转发
 
-![image]()
-图 22
+![image](https://github.com/dikers/serverless/blob/master/doc/picture/12.jpg?raw=true) 
+
 
 
 ### 4. 申请RDS 数据库
@@ -212,6 +224,16 @@ NAT 网关, 能让外部用户访问到。
 ### 6. 部署Api Gateway, 接入到lambda 接口上。
 
 ### 7. 配置VPC， 设置安全组和安全策略
+
+
+### 8. TODO 添加 DevOps 管理开发流程
+
+    使用 CodeBuild , CodeDeploy, CodePipeline 等工具，打造DevOps 工作模式。
+    
+### 9. TODO 使用CloudFormation 生成基础实施的模板文件
+
+    基础设施及代码 (Infrastructure as Code), 可以代码的方式对基础设施进行管理， 
+    可以很方便的自动化构建多种基础环境，方便开发，测试，以及灾后恢复。 
 
 
 
