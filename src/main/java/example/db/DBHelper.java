@@ -20,11 +20,11 @@ public class DBHelper {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     //TODO:  替换数据库地址
-    private static final String JDBC_DOMAIN = "product.cywvswlgkka9.us-east-1.rds.amazonaws.com:3306/demo" ;
+    private static final String JDBC_DOMAIN = "dburl:3306/dbname" ;
     //TODO:  替换用户名
-    private static final String USER_NAME = "admin";
+    private static final String USER_NAME = "username";
     //TODO:  替换数据库密码
-    private static final String PASSWORD = "chuCHU2012!";
+    private static final String PASSWORD = "password";
 
     private static final String URL = "jdbc:mysql://"+JDBC_DOMAIN+"?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 

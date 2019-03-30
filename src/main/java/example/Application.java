@@ -32,7 +32,7 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
     @Override
     public ResponseVo handleRequest(RequestVo request, Context context) {
 
-
+        logger.info( "Search word: {}   addFlag: {}  requestId: {}" , request.getSearchWord(), request.isAddFlag(), context.getAwsRequestId() );
         return doWork( request.getSearchWord(), request.isAddFlag());
     }
 
@@ -52,6 +52,7 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
             if(addFlag){
                 //新加商品
                 productDao.save( searchWord );
+
                 return ResponseVo.success();
             }else {
                 //查询商品列表
@@ -66,21 +67,10 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
 
     }
 
-
-
-
-
-
-
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Application application = new Application();
 
         System.out.println(application.doWork( "鞋子", false ));
 
-
-
     }
 }
-
-
-
