@@ -10,33 +10,28 @@
 
 ### 无服务器计算优势
 
-* 无服务器管理 
+* **无服务器管理** 
 
-   无需预置或维护任何服务器。无需安装、维护或管理任何软件或运行时。
+  无需预置或维护任何服务器。无需安装、维护或管理任何软件或系统。
 
-* 灵活扩展  
+* **灵活扩展 ** 
 
   应用程序可自动扩展，或通过切换占用资源（如吞吐量、内存）的单位数（而不是切换单个服务器的单位数）来调整容量，从而实现扩展。
 
-* 按价值付费 
+* **按使用量付费** 
 
-  为一致的吞吐量或执行持续时间（而不是服务器单元）付费。
+  为实际的吞吐量或执行持续时间付费，而不是服务器数量付费。
 
-* 自动化的高可用性
+* **自动化的高可用性**
 
   无服务器应用程序提供内置可用性和容错功能。无需构建这些功能，因为运行此应用程序的服务在默认情况下会提供这些功能。
 
 
 ### AWS Lambda 计算服务
 
-利用 Lambda，不必预配置自己的实例；Lambda
-会代执行所有的运行和管理活动，包括容量预配置、监控服务器队运行状况、向底层计算资源应用安全补丁、部署代码、在前端运行Web服务以及监控和记录代码。AWSLambda为代码提供轻松的扩展和高可用性，从而无需做额外努力。
-
-
-
+利用Lambda，不必预配置自己的实例；Lambda会代执行所有的运行和管理活动，包括容量预配置、监控服务器队运行状况、向底层计算资源应用安全补丁、部署代码、在前端运行Web服务以及监控和记录代码。AWSLambda为代码提供轻松的扩展和高可用性，从而无需做额外努力。
 
 ### AWS Lambda 运行机制
-
 
 利用容器重用来提高函数性能当请求达到一定峰值后，才会启动新的Lambda实例进行响应，如下图所示：
 
@@ -55,7 +50,9 @@
 
 
 项目本身的功能比较简单， 通过用户输入的AWS产品的英文关键字，实时返回查询结果，
-并显示在页面上。 [项目演示地址](http://dikers.de)
+并显示在页面上。 
+
+[项目演示地址](http://dikers.de)
 
 
 
@@ -115,7 +112,7 @@ Web 应用程序或实时通信应用程序。
 需要配置安全组，以及访问策略， 只有来自Api Gateway的请求能访问Lambda服务。
 同时可以配置 AWS WAF （web application firewall ） AWS Shield 和 AWS
 Firewall Manager 来保护系统遭受网络攻击。
-[官网介绍](https://console.aws.amazon.com/waf/home?region=us-east-1#/intro)
+[WAF Shield官网介绍](https://console.aws.amazon.com/waf/home?region=us-east-1#/intro)
 
 
 
@@ -125,7 +122,7 @@ Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口
 接受用户输入参数，然后进行数据库查询，并将数据返回。
 
 [Lambda 入门指南](https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/getting-started.html)
-[本项目JAVA代码说明](https://github.com/dikers/serverless/tree/master/src/main/java/example)
+---[本项目JAVA代码说明](https://github.com/dikers/serverless/tree/master/src/main/java/example)
 
 
 ####  RDS 做数据存储
@@ -135,7 +132,7 @@ Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口
 来替换Mysql数据库， Aurora兼容mysql， 同时访问速度达到了mysql 的5倍，
 可以用更低的费用，达到更高的吞吐量和更好的稳定性。
 
-[Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1) [初始化sql脚本](https://github.com/dikers/serverless/tree/master/db)
+[Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)---[初始化sql脚本](https://github.com/dikers/serverless/tree/master/db)
 
 
 ####  AWS Glacier 做数据定期的归档
@@ -188,16 +185,19 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 *   在Route53 中添加两个record， 用来做路由转发。 
 
-        example.com 存储桶包含内容
-        www.example.com 用来重定向请求
+     example.com 存储桶包含内容 
+     www.example.com 用来重定向请求
 
 
-在下图所在页面对S3 进行路由的配置
+*   在下图所在页面对S3 进行路由的配置
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/10.jpg?raw=true)
 
 
+
 *  存储桶的公有访问设置，需要能修改访问策略，否则修改公有访问权限修改不会成功，见下图：
+
+
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/13.jpg?raw=true) 
 
@@ -223,6 +223,7 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 *  设置完成以后，需要用Route53 设置转发规则
 
+
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/22.jpg?raw=true) 
 
 
@@ -244,7 +245,10 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 * 设置访问策略， 只有Lambda服务所在的网段 和堡垒机所在的网段 可以访问数据库，
   详细配置见下图：
+  
+  
   ![image](https://github.com/dikers/serverless/blob/master/doc/picture/26.jpg?raw=true)
+
 
 
  
@@ -253,12 +257,15 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 [Lambda入门指南 - 官方教程](https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/getting-started.html)
 
-*  需要编写lambda的接口函数, 代码示例如下： 
+*  需要编写lambda的接口函数, 代码示例如下：
+ 
 ```
 package example;
 
 import com.amazonaws.services.lambda.runtime.Context; 
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+//用户输入一个Integer 做为请求参数， 函数返回一个String值。 
 
 public class Hello implements RequestHandler<Integer, String>{
     public String myHandler(int myCount, Context context) {
@@ -266,8 +273,13 @@ public class Hello implements RequestHandler<Integer, String>{
     }
 }
 
-```  
+
+```
+
+
+  
 * 服务端会调用  **example.Hello::myHandler**  进行调用
+
 
 
 * 给lambda 函数添加触发器 
@@ -281,12 +293,14 @@ public class Hello implements RequestHandler<Integer, String>{
 
 将AWS 上的数据库配置信息加密保存到AWS上， 与代码分离。 通过代码读取。
 同时需要选择加密的方式,将环境变量加密后保存到AWS上。
+
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/28.jpg?raw=true)
 
 * 网络安全设置
 
 本项目的lambda函数需要外部 Internet 访问，确保安全组允许出站连接并且 VPC 具有
 NAT 网关, 能让外部用户访问到。详细配置见下图：
+
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/23.jpg?raw=true)
 
 
@@ -296,16 +310,20 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 
 #### 第一步 创建Api
 
-主要是设置api 名称和类型， 如下图所示
+主要是设置api 名称和类型， 如下图所示：
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/34.jpg?raw=true)
 
 ####  第二步 创建 Method
 
-这一步主要是新建 method 和Lambda 函数关联起来， 因为网页要通过AJAX
-跨越访问，需要启用CORS。 
+这一步主要是新建 Method 和Lambda 函数关联起来, 如下图所示: 
+
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/35.jpg?raw=true)
+
+
+ 因为网页要通过AJAX跨越访问，**需要启用CORS** 如下图所示:  
+
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/36.jpg?raw=true)
 
@@ -333,7 +351,7 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/29.jpg?raw=true)
 
 下图中是给安全组添加访问策略， 可以指定CIDR , IP , 安全组和前缀列表，
-能访问的出战和入站的端口或者端口范围， 保证数据访问的安全性。 
+能访问的出站和入站的端口或者端口范围， 保证数据访问的安全性。 
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/30.jpg?raw=true)
 
@@ -342,7 +360,7 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 ### 8. TODO 添加 DevOps 管理开发流程
 
     
-    使用 CodeBuild , CodeDeploy, CodePipeline 等工具，打造DevOps 工作模式。
+  使用 CodeBuild , CodeDeploy, CodePipeline 等工具，打造DevOps 工作模式。
     
     
     
@@ -354,7 +372,7 @@ AWS CloudFormation
 
 ![image](http://d1.awsstatic-china.com/CloudFormation%20Assets/howitworks.c316d3856638c6c9786e49011bad660d57687259.png)
 
-基础设施及代码 (Infrastructure as Code), 可以代码的方式对基础设施进行管理，可以很方便的自动化构建多种基础环境，方便开发，测试，以及灾后恢复。
+基础设施及代码 (Infrastructure as Code), 可以用代码的方式对基础设施进行管理，可以很方便的自动化构建多种基础环境，方便开发，测试，以及灾后恢复。
 
 
 下图是AWS CloudFormation 图形化设计界面,
