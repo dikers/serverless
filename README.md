@@ -301,7 +301,7 @@ public class Hello implements RequestHandler<Integer, String>{
 
 * 环境变量的配置
 
-将AWS 上的数据库配置信息加密保存到AWS上， 与代码分离。 通过代码读取。
+将AWS 上的数据库配置信息加密保存到AWS上,与代码分离,通过代码读取。
 同时需要选择加密的方式,将环境变量加密后保存到AWS上。
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/28.jpg?raw=true)
