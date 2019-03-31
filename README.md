@@ -1,4 +1,11 @@
-# AWS 无服务架构 -Demo项目
+AWS 无服务架构 -Demo项目
+===============================================
+
+
+本项目还有一个自动化构建的版本， 请参考[AWS Serverless服务架构  自动构建版本 ](https://github.com/dikers/codestar)
+-----------------------------------------------
+
+
 
 
 ##  一、AWS无服务架构介绍
@@ -70,6 +77,8 @@
 
 
 #### 本项目架构图
+
+
 
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/7.png?raw=true)
@@ -361,11 +370,13 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 ### 8. TODO 添加 DevOps 管理开发流程
 
     
-  使用 CodeBuild , CodeDeploy, CodePipeline 等工具，打造DevOps 工作模式。
+   使用 CodeStar 集成了CodeBuild , CodeDeploy, 等工具， 代码提交后，自动编译
+   自动发布， 提高开发效率。 CodeStart 界面如下图： 
+   
+   ![image](https://github.com/dikers/serverless/blob/master/doc/picture/40.jpg?raw=true)
     
     
-    
-### 9. TODO 使用CloudFormation 生成基础实施的模板文件
+### 9. 使用CloudFormation 生成基础实施的模板文件
 
 
 AWS CloudFormation
