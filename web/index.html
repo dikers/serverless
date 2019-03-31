@@ -33,7 +33,7 @@
 
         <div class="col-lg-9">
             <div class="input-group">
-                <input type="text" class="form-control" id="search_kw" maxlength="16" placeholder="Search for...">
+                <input type="text" class="form-control" id="search_kw" maxlength="30" placeholder="Search for AWS product ...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" id="search_button"  >Go!</button>
                 </span>
@@ -74,9 +74,10 @@
         $.each(data, function(i, item){
             result.push(item.title);
         });
-        // console.log("show : ========== "+result.toString())
+        console.log("show :  "+result.toString())
         $('#search_kw').autocomplete({
             source: result
+
         });
     }
 

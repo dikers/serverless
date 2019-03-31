@@ -1,7 +1,7 @@
-# AWS 无服务架构 demo项目
+# AWS 无服务架构 -Demo项目
 
 
-##  一、AWS无服务架构
+##  一、AWS无服务架构介绍
 
 ### AWS无服务器计算
 
@@ -54,7 +54,8 @@
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/8.jpg?raw=true)
 
 
-项目本身的功能比较简单， 通过用户输入的关键字，实时返回查询结果， 并显示在页面上。 [项目演示地址](http://dikers.de)
+项目本身的功能比较简单， 通过用户输入的AWS产品的英文关键字，实时返回查询结果，
+并显示在页面上。 [项目演示地址](http://dikers.de)
 
 
 
@@ -175,7 +176,7 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 [托管静态网站 -- 官方教程](https://aws.amazon.com/cn/getting-started/projects/host-static-website/?c_1)
 
-![image](https://d1.awsstatic.com/Projects/v1/AWS_StaticWebsiteHosting_Architecture_4b.da7f28eb4f76da574c98a8b2898af8f5d3150e48.png)
+![image](http://d1.awsstatic.com/Projects/v1/AWS_StaticWebsiteHosting_Architecture_4b.da7f28eb4f76da574c98a8b2898af8f5d3150e48.png)
 
 *   需要创建三个存储桶（s3） 
 
@@ -351,7 +352,7 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 AWS CloudFormation
 提供了一种通用语言来描述和预配置云环境中的所有基础设施资源。CloudFormation可以跨所有地区和账户使用简单的文本文件以自动化的安全方式为应用程序需要的所有资源建模并对其进行预配置。
 
-![image](https://d1.awsstatic-china.com/CloudFormation%20Assets/howitworks.c316d3856638c6c9786e49011bad660d57687259.png)
+![image](http://d1.awsstatic-china.com/CloudFormation%20Assets/howitworks.c316d3856638c6c9786e49011bad660d57687259.png)
 
 基础设施及代码 (Infrastructure as Code), 可以代码的方式对基础设施进行管理，可以很方便的自动化构建多种基础环境，方便开发，测试，以及灾后恢复。
 
