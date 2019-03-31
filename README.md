@@ -3,18 +3,18 @@
 
 ##  一、AWS无服务架构介绍
 
-### AWS无服务器计算
+### 1. AWS无服务器计算
 
 无服务器计算是云原生架构，能够将更多的运营职责转移到AWS，从而提高灵活性和创新能力。无服务器计算可以在不考虑服务器的情况下构建并运行应用程序和服务。它消除了基础设施管理任务，例如服务器或集群配置、修补、操作系统维护和容量预置。
 
 
-### 无服务器计算优势
+### 2. 无服务器计算优势
 
 * **无服务器管理** 
 
   无需预置或维护任何服务器。无需安装、维护或管理任何软件或系统。
 
-* **灵活扩展 ** 
+* **灵活扩展** 
 
   应用程序可自动扩展，或通过切换占用资源（如吞吐量、内存）的单位数（而不是切换单个服务器的单位数）来调整容量，从而实现扩展。
 
@@ -27,11 +27,11 @@
   无服务器应用程序提供内置可用性和容错功能。无需构建这些功能，因为运行此应用程序的服务在默认情况下会提供这些功能。
 
 
-### AWS Lambda 计算服务
+### 3. AWS Lambda 计算服务
 
 利用Lambda，不必预配置自己的实例；Lambda会代执行所有的运行和管理活动，包括容量预配置、监控服务器队运行状况、向底层计算资源应用安全补丁、部署代码、在前端运行Web服务以及监控和记录代码。AWSLambda为代码提供轻松的扩展和高可用性，从而无需做额外努力。
 
-### AWS Lambda 运行机制
+### 4. AWS Lambda 运行机制
 
 利用容器重用来提高函数性能当请求达到一定峰值后，才会启动新的Lambda实例进行响应，如下图所示：
 
@@ -74,14 +74,15 @@
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/7.png?raw=true)
 
-#### Route 53 做路由转发
+#### 1. Route 53 做路由转发
+
 
 ##### 设置了以下三个路由规则
 *  example.com
 *  www.example.com
 *  lambda.example.com    
 
-####  用AWS S3托管静态网站
+####  2. 用AWS S3托管静态网站
 
 前端用jquery 做静态页面 ， 将静态页面上次到AWS S3上， 设置S3 为托管网站，
 再使用AWS CloudFront 做CDN内容分发， 提高网站访问速度。 
@@ -93,7 +94,7 @@
 
 
 
-####  Api Gateway 做数据转发
+####  3. Api Gateway 做数据转发
 
 Amazon API Gateway
 是一种完全托管的服务，可以帮助开发者轻松创建、发布、维护、监控和保护任意规模的
@@ -116,7 +117,7 @@ Firewall Manager 来保护系统遭受网络攻击。
 
 
 
-####  Lambda 做数据处理
+####  4. Lambda 做数据处理
 
 Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口函数，
 接受用户输入参数，然后进行数据库查询，并将数据返回。
@@ -125,7 +126,7 @@ Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口
 ---[本项目JAVA代码说明](https://github.com/dikers/serverless/tree/master/src/main/java/example)
 
 
-####  RDS 做数据存储
+####  5. RDS 做数据存储
 
 使用AWS RDS mysql 作为数据存储单元， 数据库需要在多可用区做备份，
 同时可以根据负载情况新加只读实例，以提高吞吐量。 或者可以使用 AWS Aurora
@@ -135,7 +136,7 @@ Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口
 [Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)---[初始化sql脚本](https://github.com/dikers/serverless/tree/master/db)
 
 
-####  AWS Glacier 做数据定期的归档
+####  6. AWS Glacier 做数据定期的归档
 Amazon S3 Glacier
 是一款安全、持久且成本极低的云存储服务，适用于数据存档和长期备份。它能够提供
 99.999999999% 的持久性以及全面的安全与合规功能，可以帮助满足最严格的监管要求。
