@@ -49,7 +49,7 @@ AWS 无服务架构 -Demo项目
 
 
 
-## 二、 项目功能和技术架构介绍。
+## 二、 项目功能和技术架构介绍
 
 ### 项目功能介绍
 
@@ -132,7 +132,8 @@ Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口
 接受用户输入参数，然后进行数据库查询，并将数据返回。
 
 [Lambda 入门指南](https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/getting-started.html)
----[本项目JAVA代码说明](https://github.com/dikers/serverless/tree/master/src/main/java/example)
+
+[本项目JAVA代码说明](https://github.com/dikers/serverless/tree/master/src/main/java/example)
 
 
 ####  5. RDS 做数据存储
@@ -142,13 +143,12 @@ Lambda 服务用java实现， 做数据计算和处理， 实现AWS Lambda接口
 来替换Mysql数据库， Aurora兼容mysql， 同时访问速度达到了mysql 的5倍，
 可以用更低的费用，达到更高的吞吐量和更好的稳定性。
 
-[Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)---[初始化sql脚本](https://github.com/dikers/serverless/tree/master/db)
+[Aurora 官方介绍](https://aws.amazon.com/cn/rds/aurora/?nc2=h_m1)
 
 
 ####  6. AWS Glacier 做数据定期的归档
 Amazon S3 Glacier
-是一款安全、持久且成本极低的云存储服务，适用于数据存档和长期备份。它能够提供
-99.999999999% 的持久性以及全面的安全与合规功能，可以帮助满足最严格的监管要求。
+是一款安全、持久且成本极低的云存储服务，适用于数据存档和长期备份。它能够提供非常高的持久性以及全面的安全与合规功能，可以帮助满足最严格的监管要求。
 在项目中， 会用Glacier来保存数据库快照和日志记录。
 [AWS Glacier官方介绍](https://aws.amazon.com/cn/glacier/?nc2=h_m1)
 
@@ -167,7 +167,7 @@ Amazon S3 Glacier
 建议设置计费警告， 当超过免费套餐额度的时候， 会收到邮件通知。
  
 
-### 2. 申请域名， 使用Route53解析
+### 2. 申请域名， 使用Route 53解析
 
 
 Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) Web 服务。
@@ -193,7 +193,7 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 
 *   创建CloudFront 做内容分发， 加快各地区的访问速度。 
 
-*   在Route53 中添加两个record， 用来做路由转发。 
+*   在Route 53 中添加两个record， 用来做路由转发。 
 
      example.com 存储桶包含内容 
      www.example.com 用来重定向请求
@@ -231,7 +231,7 @@ Amazon Route 53 是一种可用性高、可扩展性强的云域名系统 (DNS) 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/11.jpg?raw=true) 
 
 
-*  设置完成以后，需要用Route53 设置转发规则
+*  设置完成以后，需要用Route 53 设置转发规则
 
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/22.jpg?raw=true) 
