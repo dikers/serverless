@@ -2,7 +2,7 @@ AWS 无服务架构 -Demo项目
 ===============================================
 
 
-本项目还有一个自动化构建的版本， 请参考[AWS Serverless服务架构  自动构建版本 ](https://github.com/dikers/codestar)
+本项目有一个自动化构建版本，请参考[AWS Serverless服务架构 自动构建版本](https://github.com/dikers/codestar)
 -----------------------------------------------
 
 
@@ -66,7 +66,7 @@ AWS 无服务架构 -Demo项目
 ### 项目架构设计
 
 
-####  官方示例
+####  官方Lambda实现无服务架构的一个示例 
 
 ![image](https://d1.awsstatic-china.com/product-marketing/Lambda/Diagrams/product-page-diagram_Lambda-WebApplications%202.c7f8cf38e12cb1daae9965ca048e10d676094dc1.png)  
 
@@ -98,7 +98,7 @@ AWS 无服务架构 -Demo项目
 
 ##### 设置了三个储存桶
 * 放网站静态资源
-* 做转发
+* 做转发， 将www.example.com 的流量转发到example.com
 * 存放log日志和一些项目资源
 
 
@@ -118,8 +118,8 @@ Web 应用程序或实时通信应用程序。
 
 
 
-本项目中， 从静态页面发出的动态请求，会通过Api Gateway转发给Lambda服务器,
-需要配置安全组，以及访问策略， 只有来自Api Gateway的请求能访问Lambda服务。
+本项目中， 从静态页面发出的动态请求，会通过API Gateway转发给Lambda服务器,
+需要配置安全组，以及访问策略， 只有来自API Gateway的请求能访问Lambda服务。
 同时可以配置 AWS WAF （web application firewall ） AWS Shield 和 AWS
 Firewall Manager 来保护系统遭受网络攻击。
 [WAF Shield官网介绍](https://console.aws.amazon.com/waf/home?region=us-east-1#/intro)
@@ -294,7 +294,7 @@ public class Hello implements RequestHandler<Integer, String>{
 
 * 给lambda 函数添加触发器 
 
-   这里选择 Api Gateway进行关联， 把来自S3托管网页的ajax 请求，转发给Lambda
+   这里选择 API Gateway进行关联， 把来自S3托管网页的ajax 请求，转发给Lambda
    进行处理。
    
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/25.jpg?raw=true)
@@ -314,11 +314,11 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/23.jpg?raw=true)
 
 
-### 6. 部署Api Gateway, 接入到lambda 接口上。
+### 6. 部署API Gateway, 接入到lambda 接口上。
 
 
 
-#### 第一步 创建Api
+#### 第一步 创建API Gateway
 
 主要是设置api 名称和类型， 如下图所示：
 
@@ -338,10 +338,10 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/36.jpg?raw=true)
 
 
-#### 第三步 部署api
+#### 第三步 部署API Gateway
 
 
-经过部署以后 api 就生效了， 可以通过接口进行测试。 
+经过部署以后 API Gateway 就生效了， 可以通过接口进行测试。 
 
 ![image](https://github.com/dikers/serverless/blob/master/doc/picture/37.jpg?raw=true)
 
@@ -367,13 +367,16 @@ NAT 网关, 能让外部用户访问到。详细配置见下图：
 
 
 
-### 8. TODO 添加 DevOps 管理开发流程
+### 8. 添加 DevOps 管理开发流程
 
     
    使用 CodeStar 集成了CodeBuild , CodeDeploy, 等工具， 代码提交后，自动编译
    自动发布， 提高开发效率。 CodeStart 界面如下图： 
    
+   
    ![image](https://github.com/dikers/serverless/blob/master/doc/picture/40.jpg?raw=true)
+   
+   使用CodeStar [代码示例](https://github.com/dikers/codestar)
     
     
 ### 9. 使用CloudFormation 生成基础实施的模板文件
