@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <style>
+
+
+    </style>
+    <meta charset="utf-8">
+    <title>DISC 在线测评</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://www.jq22.com/jquery/jquery-ui-1.11.0.css">
+
+</head>
+<body>
+
+
+
+<div class="container">
+
+
+    <h1> DISC 在线测评  </h1>
+
+
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Question  1. </div>
+        <!-- Table    1 -->
+        <table class="table" id="q_1" >
+            <thead>
+                <td width="70%"></td>
+                <td width="15%" align="center" >最适合</td>
+                <td width="15%" align="center">最不适合</td>
+
+            </thead>
+            <tr >
+                <td>内容1</td>
+                <td align="center"><input  type="radio" name="q_1_m" value="s"  /></td>
+                <td align="center"><input  type="radio" name="q_1_l" value="i" /></td>
+            </tr>
+
+            <tr>
+                <td >内容2</td>
+                <td align="center"><input  type="radio" name="q_1_m" value="c"  /></td>
+                <td align="center"><input  type="radio" name="q_1_l" value="s" /></td>
+
+            </tr>
+
+            <tr>
+                <td>内容3</td>
+                <td align="center"><input  type="radio" name="q_1_m" value="d"  /></td>
+                <td align="center"><input  type="radio" name="q_1_l" value="c" /></td>
+            </tr>
+
+            <tr>
+                <td>内容4</td>
+                <td align="center"><input  type="radio" name="q_1_m" value="i"  /></td>
+                <td align="center"><input  type="radio" name="q_1_l" value="d" /></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+
+
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Question  2. </div>
+        <!-- Table    2 -->
+        <table class="table"   >
+            <thead>
+            <td width="70%"></td>
+            <td width="15%" align="center" >最适合</td>
+            <td width="15%" align="center">最不适合</td>
+
+            </thead>
+            <tr >
+                <td>内容1</td>
+                <td align="center"><input  type="radio" name="q_2_m" value="s"  /></td>
+                <td align="center"><input  type="radio" name="q_2_l" value="i" /></td>
+            </tr>
+
+            <tr>
+                <td >内容2</td>
+                <td align="center"><input  type="radio" name="q_2_m" value="c"  /></td>
+                <td align="center"><input  type="radio" name="q_2_l" value="s" /></td>
+
+            </tr>
+
+            <tr>
+                <td>内容3</td>
+                <td align="center"><input  type="radio" name="q_2_m" value="d"  /></td>
+                <td align="center"><input  type="radio" name="q_2_l" value="c" /></td>
+            </tr>
+
+            <tr>
+                <td>内容4</td>
+                <td align="center"><input  type="radio" name="q_2_m" value="i"  /></td>
+                <td align="center"><input  type="radio" name="q_2_l" value="d" /></td>
+            </tr>
+
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+      <p > <button type="button"   class="btn btn-primary btn-lg " id="submit_button" > &nbsp;&nbsp;&nbsp;确认提交&nbsp;&nbsp;&nbsp;   </button></p>
+
+
+
+
+
+
+
+    <div class="mastfoot">
+        <div class="inner">
+            <p>Create by <a href="http://getbootstrap.com">dikers</a> </p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+
+
+<script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script>
+
+
+    var s_m =0, d_m =0, c_m =0, i_m = 0;
+    var s_l =0, d_l =0, c_l =0, i_l = 0;
+
+    $(function() {
+
+        $('#submit_button').click(function () {
+
+            if (checkInput()== false){
+                alert("请先选择答案！")
+                return ;
+            }
+
+        })
+    });
+
+
+    function checkInput() {
+
+        var count = 2;
+        for (var i=1; i<=count; i++){
+            var nameM = 'input[name=q_'+i+'_m]:checked' ;
+            var nameL = 'input[name=q_'+i+'_l]:checked' ;
+
+            var mValue = $(nameM).val();
+            var lValue = $(nameL).val() ;
+            console.log(  i+  ".  : "+mValue+"  |   "+ lValue);
+
+            if (mValue == null  || lValue == null  ){
+                return false;
+            }
+
+
+            if (mValue == 's'){
+                s_m ++;
+            }else if (mValue == "c"){
+                c_m ++;
+            }else if (mValue == "d"){
+                d_m ++;
+            }else if (mValue == 'i'){
+                i_m ++;
+            }
+
+
+            if (lValue == 's'){
+                s_l ++;
+            }else if (lValue == "c"){
+                c_l ++;
+            }else if (lValue == "d"){
+                d_l ++;
+            }else if (lValue == 'i'){
+                i_l ++;
+            }
+
+
+            debug();
+        }
+
+
+        return true;
+
+    }
+
+
+
+
+
+    function debug() {
+        console.log("M ----- s:"+s_m+", d:"+d_m+" , c:"+c_m+" , i:"+i_m )
+        console.log("L ----- s:"+s_l+", d:"+d_l+" , c:"+c_l+" , i:"+i_l )
+        console.log("M-L --- s:"+(s_m - s_l)+", d:"+(d_m - d_l)+" , c:"+(c_m - c_l)+" , i:"+(i_m - i_l) )
+
+
+    }
+
+
+
+</script>
+</html>

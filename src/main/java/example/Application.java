@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * @author dikers
@@ -34,7 +35,8 @@ public class Application implements RequestHandler<RequestVo, ResponseVo> {
 
         LambdaLogger logger = context.getLogger();
         logger.log( "SearchWord: '"+request.getSearchWord()+"'\taddFlag:"+request.isAddFlag()+"\t");
-        return doWork( request.getSearchWord(), request.isAddFlag());
+//        return doWork( request.getSearchWord(), request.isAddFlag());
+        return ResponseVo.success();
     }
 
 
